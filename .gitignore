@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+markdown
+os
+toml
+
 # C extensions
 *.so
 
