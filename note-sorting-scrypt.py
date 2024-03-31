@@ -1,6 +1,7 @@
 import markdown
 import toml
 import os
+from systemd import journal
 
 KEY_VALUE_PAIRS_PATH = '/home/basic/DnD/DnD-Notes/Waterdeep/unsorted/keys.toml' 
 TARGET_DIRECTORY = '/home/basic/DnD/DnD-Notes/Waterdeep/unsorted'
@@ -40,11 +41,11 @@ def get_new_path(file_path, obsidian_vault_path=OBSIDIAN_VAULT_PATH):
         else:
             new_path = os.path.join(obsidian_vault_path, 'unsorted', file_path.split('/')[-1])
 
-        print("Moved file:", file_name, "--->", new_path)
+        journal.write("Moved file: " + file_name + " ---> " + new_path)
         return new_path
 
 def sort_files(target_directory=TARGET_DIRECTORY, file_exceptions=FILE_EXEPTIONS, keys_path=KEY_VALUE_PAIRS_PATH, obsidian_vault_path=OBSIDIAN_VAULT_PATH):
-    
+    journal.write("Sorting files in directory: " + target_directory)    
     for filename in os.listdir(target_directory):
         if filename not in file_exceptions:
             file_path = os.path.join(target_directory, filename)
@@ -52,6 +53,9 @@ def sort_files(target_directory=TARGET_DIRECTORY, file_exceptions=FILE_EXEPTIONS
             new_path = get_new_path(file_path)
             
             os.rename(file_path, new_path)   
+
+    journal.write("Finished sorting files in directory: " + target_directory)
+
 
 sort_files()
 
