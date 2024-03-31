@@ -41,7 +41,7 @@ def get_new_path(file_path, obsidian_vault_path=OBSIDIAN_VAULT_PATH):
         else:
             new_path = os.path.join(obsidian_vault_path, 'unsorted', file_path.split('/')[-1])
 
-        journal.write("Moved file: " + file_name + " ---> " + new_path)
+        journal.write("   Moved file: " + file_name + " ---> " + new_path)
         return new_path
 
 def sort_files(target_directory=TARGET_DIRECTORY, file_exceptions=FILE_EXEPTIONS, keys_path=KEY_VALUE_PAIRS_PATH, obsidian_vault_path=OBSIDIAN_VAULT_PATH):
