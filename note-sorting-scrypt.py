@@ -51,10 +51,10 @@ def get_new_path(file_path, obsidian_vault_path=OBSIDIAN_VAULT_PATH):
             new_path = os.path.join(obsidian_vault_path, keys[tag], file_path.split('/')[-1])
             journal.write("   Moved file: " + file_name + " ---> " + new_path)
             return new_path
-        else:
-            new_path = os.path.join(obsidian_vault_path, 'unsorted', file_path.split('/')[-1])
-            journal.write("   Moved file: " + file_name + " ---> " + new_path)
-            return new_path
+        
+    # If no tags are found, move the file to the unsorted folder
+    journal.write("   Moved file: " + file_name + " ---> NOT SORTED")
+    return None
         
 
 
@@ -67,8 +67,9 @@ def sort_files(target_directory=TARGET_DIRECTORY, file_exceptions=FILE_EXEPTIONS
             file_path = os.path.join(target_directory, filename)
 
             new_path = get_new_path(file_path)
-            
-            os.rename(file_path, new_path)   
+
+            if new_path:            
+                os.rename(file_path, new_path)   
 
     journal.write("Finished sorting files in directory: " + target_directory)
 
