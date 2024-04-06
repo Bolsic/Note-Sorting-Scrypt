@@ -1,4 +1,3 @@
-import markdown
 import toml
 import os
 from systemd import journal
